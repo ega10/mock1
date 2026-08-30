@@ -1,0 +1,47 @@
+-- Q1: Inventory Database
+
+CREATE TABLE Products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(50),
+    supplier_id INT,
+    price DECIMAL(10,2)
+);
+
+CREATE TABLE Suppliers (
+    supplier_id INT PRIMARY KEY,
+    supplier_name VARCHAR(100),
+    city VARCHAR(50)
+);
+
+CREATE TABLE Purchase_Orders (
+    order_id INT PRIMARY KEY,
+    supplier_id INT,
+    order_date DATE
+);
+
+CREATE TABLE Purchase_Items (
+    order_id INT,
+    product_id INT,
+    quantity INT
+);
+
+-- Sample Data
+
+INSERT INTO Suppliers VALUES
+(1, 'Supplier X', 'Mumbai'),
+(2, 'Supplier Y', 'Pune');
+
+INSERT INTO Products VALUES
+(101, 'Product A', 'Electronics', 1, 500),
+(102, 'Product B', 'Furniture', 1, 1000);
+
+INSERT INTO Purchase_Orders VALUES
+(1001, 1, '2026-01-10'),
+(1002, 2, '2026-01-15'),
+(1003, 1, '2026-01-20');
+
+INSERT INTO Purchase_Items VALUES
+(1001, 101, 10),
+(1002, 101, 15),
+(1003, 102, 40);
