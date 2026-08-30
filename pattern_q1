@@ -1,0 +1,47 @@
+CREATE TABLE Suppliers (
+    supplier_id INT PRIMARY KEY,
+    supplier_name VARCHAR(50),
+    city VARCHAR(50)
+);
+
+CREATE TABLE Products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(50),
+    category VARCHAR(50),
+    supplier_id INT,
+    price DECIMAL(10,2),
+    FOREIGN KEY (supplier_id) REFERENCES Suppliers(supplier_id)
+);
+
+CREATE TABLE Purchase_Orders (
+    order_id INT PRIMARY KEY,
+    supplier_id INT,
+    order_date DATE,
+    FOREIGN KEY (supplier_id) REFERENCES Suppliers(supplier_id)
+);
+
+CREATE TABLE Purchase_Items (
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id) REFERENCES Purchase_Orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+);
+INSERT INTO Suppliers VALUES
+(1, 'Supplier X', 'Mumbai'),
+(2, 'Supplier Y', 'Pune');
+
+INSERT INTO Products VALUES
+(101, 'Product A', 'Electronics', 1, 1000),
+(102, 'Product A', 'Electronics', 2, 1000),
+(103, 'Product B', 'Furniture', 1, 2000);
+
+INSERT INTO Purchase_Orders VALUES
+(1, 1, '2026-01-10'),
+(2, 2, '2026-01-15'),
+(3, 1, '2026-01-20');
+
+INSERT INTO Purchase_Items VALUES
+(1, 101, 10),
+(2, 102, 15),
+(3, 103, 40);
