@@ -1,0 +1,22 @@
+SELECT p.product_name,
+       t.total_quantity_purchased,
+       s.supplier_name
+FROM Products p
+JOIN (
+    SELECT product_id,
+           SUM(quantity) AS total_quantity_purchased
+    FROM Purchase_Items
+    GROUP BY product_id
+) t
+ON p.product_id = t.product_id
+JOIN Purchase_Items pi
+ON p.product_id = pi.product_id
+JOIN Purchase_Orders po
+ON pi.order_id = po.order_id
+JOIN Suppliers s
+ON po.supplier_id = s.supplier_id
+GROUP BY p.product_id,
+         p.product_name,
+         t.total_quantity_purchased,
+         s.supplier_id,
+         s.supplier_name;
